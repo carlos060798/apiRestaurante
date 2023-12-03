@@ -1,6 +1,6 @@
 import { Router } from 'express';
 
-
+import { UsersRoutes } from './users/routes';
 
 
 export class AppRoutes {
@@ -11,7 +11,8 @@ export class AppRoutes {
     const router = Router();
     
     
-    router.use('/api/users', );
+    router.use('/api/users',UsersRoutes.routes) 
+    router.use('/api/reservations',UsersRoutes.routes)
 
 
 

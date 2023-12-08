@@ -1,23 +1,25 @@
 import { envs } from './config/envs';
-import { PosgressDatabase } from './data/sqlize/bd-connection';
 import { AppRoutes } from './presentation/routes';
 import { Server } from './presentation/server';
+import { DatabaseConnector } from './data/sqlize/bd-connection';
 
-
-
-(async()=> {
-  main();
+(async () => {
+  await main();
 })();
 
-
 async function main() {
+  try {
 
- await PosgressDatabase.conectar( envs.BASE_URL)
+    const databaseConnector = new DatabaseConnector(envs.BASE_URL);
+    await databaseConnector.conectar();
+    const server = new Server({
+      port: envs.PORT,
+      routes: AppRoutes.routes,
+    });
 
-  const server = new Server({
-    port: envs.PORT,
-    routes: AppRoutes.routes,
-  });
-
-  server.start();
+    server.start();
+  } catch (error) {
+    console.error('Error al iniciar la aplicación:', error);
+    // Puedes manejar el error de otra manera según tus necesidades
+  }
 }

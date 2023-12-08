@@ -4,6 +4,7 @@ import { UsersRoutes } from './users/routes';
 
 
 export class AppRoutes {
+  
 
 
   static get routes(): Router {

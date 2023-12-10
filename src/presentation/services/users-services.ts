@@ -1,4 +1,4 @@
-import Usuario from '../../data/sqlize/models/user-model';
+import{ Usuario} from '../../data/sqlize/models/models';
 interface dataUser{
   nombres: string;
   tipoDeIdentificacion: string;

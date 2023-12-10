@@ -1,62 +1,26 @@
 import { Request, Response } from "express";
 
-export class ReservationController{
-
-constructor(){}
+import { ReservationServices  } from "../services/reservation-service";
 
 
-getReservations(req: Request, res: Response){
+export class ReservationController {
+  private reservationService: ReservationServices ;
 
-  res.json({
-    msg: 'getReservations'
-  
-  })
-}
+  constructor() {
+    this.reservationService = new ReservationServices ();
+  }
 
-getReservation(req: Request, res: Response){
-
-  res.json({
-    msg: 'getReservation'
-  
-  })}
-
-createReservation(req: Request, res: Response){
+  createReservation =  (req: Request, res: Response) => {
+    const  iduser = req.params.id
+    const data = {...req.body,
+      usuarioId: iduser
+    }
     
-      res.json({
-     msg: 'createReservation'
+       this.reservationService.create(data).then((reservation) => {
+         res.status(200).json( {msg:"reserva creada" ,reservation});
+       }).catch((error) => {
+         res.status(400).json(error);
+       });
       
-      })}
-
-updateReservation(req: Request, res: Response){
-     
-        res.json({
-      msg: 'updateReservation'
-        
-        })}
-
-  
-deleteReservation(req: Request, res: Response){
-         
-          res.json({
-        msg: 'deleteReservation'
-          
-          })
+  }
 }
-
-confirmReservation(req: Request, res: Response){
-           
-            res.json({
-          msg: 'confirmReservation'
-            
-            })
-}
-
-
-
-
-
-
-
-}
-
-

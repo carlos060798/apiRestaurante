@@ -8,7 +8,7 @@ export class UsersController {
         this.usersServices = usersServices;
     }
 
-    createUser=(req: Request, res: Response) =>{
+    createUser= (req: Request, res: Response) =>{
         const data = { ...req.body };
         console.log(data);
         this.usersServices.create(data)
@@ -16,6 +16,7 @@ export class UsersController {
                 res.status(200).json(response);
             })
             .catch(error => {
+                console.error('Error al crear el usuario:', error);
                 res.status(400).json(error);
             });
     }
@@ -26,6 +27,7 @@ export class UsersController {
                 res.status(200).json(response);
             })
             .catch(error => {
+                console.error('Error al crear el usuario:', error);
                 res.status(400).json(error);
             });
     } 

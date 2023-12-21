@@ -1,7 +1,7 @@
 import { envs } from './config/envs';
+import { sequelize } from './data/sqlize/models/squlize';
 import { AppRoutes } from './presentation/routes';
 import { Server } from './presentation/server';
-import { DatabaseConnector } from './data/sqlize/bd-connection';
 
 (async () => {
   await main();
@@ -9,9 +9,9 @@ import { DatabaseConnector } from './data/sqlize/bd-connection';
 
 async function main() {
   try {
+   
+    sequelize.authenticate();
 
-    const databaseConnector = new DatabaseConnector(envs.BASE_URL);
-    await databaseConnector.conectar();
     const server = new Server({
       port: envs.PORT,
       routes: AppRoutes.routes,

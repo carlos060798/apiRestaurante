@@ -12,6 +12,11 @@ export class ReservationRoutes {
     router.put("/:id", constroller.updateReservation);
     router.delete("/:id", constroller.deleteReservation);
 
+    // Listado de las reservas por usuario y cambio de estado
+    router.get("/reservasuser/:id", constroller.getReservationsByUser);
+
+    router.put("/aprove/:id", constroller.aproveReservation);
+
   
 
     return router;

@@ -58,5 +58,29 @@ export class ReservationController {
     }).catch((error) => {
       res.status(400).json(error);
     });
+  } 
+
+  getReservationsByUser =  (req: Request, res: Response) => {
+    const id = req.params.id;
+    this.reservationService.getReservationsByUser(id).then((reservation) => {
+      res.status(200).json(reservation);
+    }).catch((error) => {
+      res.status(400).json(error);
+    });
   }
+
+  aproveReservation =  (req: Request, res: Response) => {
+    const id = req.params.id;
+    const estado = req.body;
+    console.log(estado,id);
+    this.reservationService.aproveReservation(id,estado).then((reservation) => {
+      console.log(reservation);
+      res.status(200).json(reservation);
+    }).catch((error) => {
+      console.log(error);
+      res.status(400).json(error);
+    });
+  }
+
+
 }

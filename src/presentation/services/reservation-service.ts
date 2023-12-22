@@ -94,4 +94,32 @@ export class ReservationServices {
       console.log(error);
     }
   }
+
+  async getReservationsByUser(id: string) {
+    try {
+      const reservations = await Reserva.findAll({
+        where: {
+          usuarioId: id,
+        },
+      });
+      return reservations;
+    } catch (error) {
+      console.log(error);
+    }
+  }
+
+  async aproveReservation(id: string,estado: string) {
+    try {
+      
+    const  reservaupdate= await Reserva.findByPk(id);
+    if (!reservaupdate) throw new Error("Reserva no existe");
+    if (estado && estado !== reservaupdate.estado) reservaupdate.estado = estado;
+     await reservaupdate.save();
+     console.log(reservaupdate.estado);
+     return reservaupdate;
+      
+    } catch (error) {
+      console.log(error);
+    }
+  }
 }

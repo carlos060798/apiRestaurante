@@ -6,7 +6,11 @@ export class ReservationRoutes {
     
     const constroller = new ReservationController();
 
-    router.post("/:id", constroller.createReservation); 
+    router.post("/:id", constroller.createReservation);
+    router.get("/", constroller.getAllReservations);
+    router.get("/:id", constroller.getOneReservation);
+    router.put("/:id", constroller.updateReservation);
+    router.delete("/:id", constroller.deleteReservation);
 
   
 

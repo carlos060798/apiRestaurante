@@ -37,7 +37,9 @@ import { Table, Column, Model, HasMany, ForeignKey, BelongsTo } from 'sequelize-
   @Column
   cantidadPersonas!: number;
 
-  @Column
+  @Column({
+    defaultValue: 'pendiente', // Valor predeterminado para el campo 'estado'
+  })
   estado!: string;
 
   @ForeignKey(() => Usuario)

@@ -1,6 +1,7 @@
 import { Router } from 'express';
 
 import { UsersRoutes } from './users/routes';
+import { ReservationRoutes } from './reservas/routes';
 
 
 export class AppRoutes {
@@ -13,7 +14,7 @@ export class AppRoutes {
     
     
     router.use('/api/users',UsersRoutes.routes) 
-    router.use('/api/reservations',UsersRoutes.routes)
+    router.use('/api/reservation',ReservationRoutes.routes)
 
 
 

@@ -17,13 +17,12 @@ interface dataReservation {
 
 export class ReservationServices {
   async create(data: dataReservation) {
-    const { fechaReserva, tipoReserva, cantidadPersonas, estado,usuarioId } = data;
+    const { fechaReserva, tipoReserva, cantidadPersonas, usuarioId } = data;
     try {
       const reservation = await Reserva.create({
         fechaReserva,
         tipoReserva,
         cantidadPersonas,
-        estado,
         usuarioId
       });
       console.log(reservation);
@@ -52,27 +51,35 @@ export class ReservationServices {
   }
 
   async update(id: string, data: dataReservation) {
-    const { fechaReserva, tipoReserva, cantidadPersonas, estado } = data;
-    try {
-      const reservation = await Reserva.update(
-        {
-          fechaReserva,
-          tipoReserva,
-          cantidadPersonas,
-          estado,
-        },
-        {
-          where: {
-            id,
-          },
-        }
-      );
+   
+  const  reserva= await Reserva.findByPk(id);
 
-      console.log(reservation);
-      return reservation;
+  if (!reserva) throw new Error("Reserva no existe");
+
+   // Comprobar cada campo nuevo y actualizar si es diferente
+   if (data.fechaReserva && data.fechaReserva !== reserva.fechaReserva) {
+    reserva.fechaReserva = data.fechaReserva;
+  }
+
+  if (data.tipoReserva && data.tipoReserva !== reserva.tipoReserva) {
+    reserva.tipoReserva = data.tipoReserva;
+  }
+
+  if (data.cantidadPersonas&& data.cantidadPersonas!== reserva.cantidadPersonas) {
+    reserva.cantidadPersonas= data.cantidadPersonas;
+  }
+
+  try {
+    const reservation = await reserva.save();
+    return reservation;
     } catch (error) {
       console.log(error);
     }
+
+ 
+
+  
+
   }
 
   async delete(id: string) {

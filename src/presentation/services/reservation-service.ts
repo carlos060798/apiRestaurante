@@ -1,4 +1,5 @@
 
+import { error } from "console";
 import { Reserva } from "../../data/sqlize/models/models";
 
 
@@ -108,18 +109,27 @@ export class ReservationServices {
     }
   }
 
-  async aproveReservation(id: string,estado: string) {
-    try {
-      
-    const  reservaupdate= await Reserva.findByPk(id);
-    if (!reservaupdate) throw new Error("Reserva no existe");
-    if (estado && estado !== reservaupdate.estado) reservaupdate.estado = estado;
-     await reservaupdate.save();
-     console.log(reservaupdate.estado);
-     return reservaupdate;
-      
-    } catch (error) {
-      console.log(error);
+  async aproveReservation(idReserva: string,nuevoEstado: string) {
+   
+
+  console.log(nuevoEstado);
+
+  try {
+    const reservaUpdate = await Reserva.findByPk(idReserva);
+
+    if (!reservaUpdate) {
+     throw error({ error: 'Reserva no existe' });
+    }
+
+    if (reservaUpdate.estado !== nuevoEstado) {
+      reservaUpdate.estado = nuevoEstado;
+      await reservaUpdate.save();
+      console.log(reservaUpdate.estado);
+      return reservaUpdate
     }
   }
+  catch (error) {
+    console.log(error);
+  }
+}
 }

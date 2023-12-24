@@ -70,14 +70,15 @@ export class ReservationController {
   }
 
   aproveReservation =  (req: Request, res: Response) => {
-    const id = req.params.id;
-    const estado = req.body;
-    console.log(estado,id);
-    this.reservationService.aproveReservation(id,estado).then((reservation) => {
-      console.log(reservation);
-      res.status(200).json(reservation);
+    const idReserva = req.params.id; // Obtener el ID de la reserva desde los parámetros de la ruta
+    const nuevoEstado = req.body.estado; // Obtener el nuevo estado desde el cuerpo de la solicitud
+
+    console.log(nuevoEstado);
+    this.reservationService.aproveReservation(idReserva,nuevoEstado).then((reservaUpdate) => {
+      res.status(200).json({
+        msg: 'Reserva actualizada correctamente',
+        reservaUpdate});
     }).catch((error) => {
-      console.log(error);
       res.status(400).json(error);
     });
   }

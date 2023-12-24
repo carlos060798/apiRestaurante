@@ -19,6 +19,7 @@ export class AuthRoutes  {
 
     router.post("/login", controller.Authenticate);
     router.get("/profile/:id", controller.Profile);
+    router.get("/valdateseccion/:token", controller.logaut);
     
    
     return router;

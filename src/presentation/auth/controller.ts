@@ -1,10 +1,13 @@
-import AuthService from "../services/auth-service";
 import { Request, Response } from "express";
+import AuthService from "../services/auth-service";
+
 
 export class AuthController {
+  
+  constructor(    
     private readonly authService: AuthService
-  constructor() {
-    this.authService = new AuthService();
+    ) {
+    
   }
 
   Authenticate = async (req: Request, res: Response) => {

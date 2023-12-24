@@ -5,8 +5,14 @@ import { get } from 'env-var';
 export const envs = {
 
   PORT: get('PORT').required().asPortNumber(),
-  BASE_URL: get('BASE_URL').required().asString(),
+
   JWT_SECRET: get('JWT_SECRET').required().asString(),
+  DATABASE_URL : get('DATABASE_URL').required().asString(),
+  MAILER_EMAIL: get('MAILER_EMAIL').required().asString(),
+  MAILER_SECRET_KEY: get('MAILER_SECRET_KEY').required().asString(),
+  MAILER_HOST: get('MAILER_HOST').required().asString(),
+  MAILER_SERVICE: get('MAILER_SERVICE').required().asString(),
+  
 
 }
 

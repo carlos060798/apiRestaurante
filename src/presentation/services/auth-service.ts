@@ -1,11 +1,15 @@
 import { Usuario } from '../../data/sqlize/models/models';
 import { bcryptAdapter } from '../../config/byscript-adapter';
 import { jwtAdapter } from '../../config/tokenJwt';
+import { envs } from '../../config/envs';
+import { EmailService} from '../../presentation/services/emai.service';
 
 class AuthService {
 
+    constructor(        private readonly emailService:EmailService
+        ) {
+    
 
-    constructor() {
 
     }
 
@@ -26,11 +30,29 @@ class AuthService {
         }
 
         const token= await jwtAdapter.generateToken({id:userauth.id,email:userauth.correo})
-       
+        const link=`${envs.MAILER_HOST}/auth/${token}`
+
+      const   html = ` 
+      <h1>Valida tu cuenta</h1>
+      <p>Para inicar seccion haga clicl en el siguiente link</p>
+      <a href="${link}">Validar cuenta : ${correo}</a>
+      
+      `
+      const mailOptions = {
+        to: correo,
+        subject: 'Validar cuenta',
+        htmlBody: html
+      };
+     const issend= await this.emailService.sendEmail(mailOptions) 
+      if(!issend) throw Error("Error al enviar el correo")
+
+      
+
 
         return {
             user: userauth,
-            token
+            token,
+            correosend: true
         };
     }
 

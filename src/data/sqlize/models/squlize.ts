@@ -1,18 +1,14 @@
 import { Sequelize } from 'sequelize-typescript';
 import { Usuario,Reserva } from '../models/models'; // Ajusta la ruta según tu estructura
+import { envs } from '../../../config/envs';
 
-const sequelize = new Sequelize({
-  database: 'appreservas', // Nombre de la base de datos
-  username: 'postgres',    // Nombre de usuario
-  password: 'admin',       // Contraseña (reemplaza con tu contraseña real)
-  host: 'localhost',       // Host de la base de datos
-  port: 5432,              // Puerto de PostgreSQL
-  dialect: 'postgres',
-  models: [Usuario, Reserva], // Registra tus modelos aquí
+console.log(envs.DATABASE_URL);
+const sequelize = new Sequelize(envs.DATABASE_URL ,{
   define: {
     timestamps: true,
     underscored: true,
   },
+  models: [Usuario, Reserva], // Registra tus modelos aquí
 });
 // levantamiento de la base de datos  para ver si esta conectada
 sequelize

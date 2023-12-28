@@ -1,6 +1,5 @@
 import express, { Router } from 'express';
-import path from 'path';
-
+import  cors from 'cors';
 interface Options {
   port: number;
   routes: Router;
@@ -30,7 +29,21 @@ export class Server {
     this.app.use( express.json() ); // raw
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
 
+  //* configurcation CORS
+  const dominiosPermitidos = ["http://localhost:5173"];
 
+  const corsOptions = {
+    origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
+      if (!origin || dominiosPermitidos.indexOf(origin) !== -1) {
+        // El origen del request está permitido o es undefined (request local)
+        callback(null, true);
+      } else {
+        callback(new Error('No está permitido por CORS'));
+      }
+    },
+  };
+
+  this.app.use(cors(corsOptions));
 
     //* Routes
     this.app.use( this.routes );

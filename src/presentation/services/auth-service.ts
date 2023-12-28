@@ -26,7 +26,7 @@ class AuthService {
       id: userauth.id,
       email: userauth.correo,
     });
-    const link = `${envs.MAILER_HOST}/auth/valdateseccion/${token}`;
+    const link = `${envs.MAILER_HOST}/${token}`;
 
     const html = `<h1>Valida tu cuenta</h1>
       <p>Para inicar seccion haga click en el siguiente link</p>

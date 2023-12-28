@@ -13,7 +13,7 @@ export class UsersController {
         console.log(data);
         this.usersServices.create(data)
             .then(response => {
-                res.status(200).json(response);
+                res.status(200).json({msg:"nuevo usuario creado",response});
             })
             .catch(error => {
                 console.error('Error al crear el usuario:', error);

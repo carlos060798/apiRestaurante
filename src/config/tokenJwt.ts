@@ -26,4 +26,19 @@ export class jwtAdapter{
           })
         })
       } 
+
+      static async extractUserIdFromToken(token: string): Promise<string | null> {
+        try {
+          const decodedToken = await jwtAdapter.validationToken<{ id: string }>(token);
+    
+          if (!decodedToken) {
+            throw new Error('Token inválido');
+          }
+    
+          return decodedToken.id;
+        } catch (error) {
+          console.error('Error al extraer el userId del token:', error);
+          return null;
+        }
+      }
   }

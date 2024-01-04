@@ -1,5 +1,6 @@
 import { Request, Response } from "express";
 import AuthService from "../services/auth-service";
+import { envs } from "../../config/envs";
 
 
 export class AuthController {
@@ -36,7 +37,7 @@ export class AuthController {
   logaut = (req: Request, res: Response) => {
     const { token } = req.params;
 
-    this.authService.validatetoken(token).then((user) => {
+    this.authService.validateToken(token).then((user) => {
       res.status(200).json(user);
     }).catch((error) => {
       res.status(400).json(error);
@@ -44,4 +45,31 @@ export class AuthController {
 
   }
 
+  repeatEmail = (req: Request, res: Response) => {
+    const { token } = req.params;
+    const {asunto,mensaje,link}= req.body;
+    const opciones= {
+      asunto,
+      mensaje,
+      link,
+    };
+    this.authService.repeatEmail(token,opciones).then((email) => {
+      res.status(200).json({msg:"correo reeneviado",email});
+    }).catch((error) => {
+      console.log(error);
+      res.status(400).json({msg:"error de reenvio de correo",error});
+    });
+
+  }
+
+  changePassword = (req: Request, res: Response) =>{
+    const { id } = req.params;
+    const {password}= req.body;
+    this.authService.changePassword(id,password).then((user) => {
+      res.status(200).json(user);
+    }).catch((error) => {
+      res.status(400).json(error);
+    });
+  }
+  
 }

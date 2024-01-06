@@ -121,15 +121,14 @@ export class ReservationServices {
      throw error({ error: 'Reserva no existe' });
     }
 
-    if (reservaUpdate.estado !== nuevoEstado) {
+    
       reservaUpdate.estado = nuevoEstado;
       await reservaUpdate.save();
-      console.log(reservaUpdate.estado);
+    
       return reservaUpdate
     }
-  }
-  catch (error) {
-    console.log(error);
-  }
+    catch (error) {
+      console.log(error);
+    }
 }
 }

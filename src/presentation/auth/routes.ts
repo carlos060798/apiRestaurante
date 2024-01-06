@@ -23,6 +23,7 @@ export class AuthRoutes  {
     router.get("/valdateseccion/:token", controller.logaut);
     router.put("/changepassword/:id", controller.changePassword);
     
+    
    
     return router;
   }

@@ -21,7 +21,8 @@ export class AuthRoutes  {
     router.get("/profile/:id", controller.Profile);
     router.post("/repeatemail/:token", controller.repeatEmail);
     router.get("/valdateseccion/:token", controller.logaut);
-    router.put("/changepassword/:id", controller.changePassword);
+    router.post("/sendchangepassword", controller. SendEmailpassword );
+    router.put("/changepassword", controller.changePassword);
     
     
    

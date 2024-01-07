@@ -63,13 +63,38 @@ export class AuthController {
   }
 
   changePassword = (req: Request, res: Response) =>{
-    const { id } = req.params;
-    const {password}= req.body;
-    this.authService.changePassword(id,password).then((user) => {
-      res.status(200).json(user);
+    
+    const {token,password}= req.body;
+    this.authService.changePassword(token,password).then((user) => {
+      res.status(200).json({
+        msg:"contraseña cambiada",
+        user
+      
+      });
     }).catch((error) => {
+      res.status(400).json({
+        msg:"error al cambiar contraseña",
+        error
+      
+      });
+    });
+  }
+
+  SendEmailpassword = (req: Request, res: Response) =>{
+    const {correo,asunto,mensaje,link}= req.body;
+    const opciones= {
+      asunto,
+      mensaje,
+      link,
+    }
+    console.log(opciones)
+    this.authService.sendemailpassword(correo,opciones).then((email) => {
+      res.status(200).json({msg:"correo enviado"  , email})
+    }).catch((error) => {
+      console.log(error)
       res.status(400).json(error);
     });
+    
   }
   
 }

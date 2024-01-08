@@ -30,7 +30,7 @@ export class Server {
     this.app.use( express.urlencoded({ extended: true }) ); // x-www-form-urlencoded
 
   //* configurcation CORS
-  const dominiosPermitidos = ["http://localhost:5173"];
+  const dominiosPermitidos = ["https://front-restaurante.vercel.app"];
 
   const corsOptions = {
     origin: function (origin: string | undefined, callback: (err: Error | null, allow?: boolean) => void) {
